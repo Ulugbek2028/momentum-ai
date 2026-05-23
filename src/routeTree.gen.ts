@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as QuestsRouteImport } from './routes/quests'
 import { Route as MentorsRouteImport } from './routes/mentors'
 import { Route as LeaguesRouteImport } from './routes/leagues'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuestsRoute = QuestsRouteImport.update({
   id: '/quests',
   path: '/quests',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/leagues': typeof LeaguesRoute
   '/mentors': typeof MentorsRoute
   '/quests': typeof QuestsRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/leagues': typeof LeaguesRoute
   '/mentors': typeof MentorsRoute
   '/quests': typeof QuestsRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,14 @@ export interface FileRoutesById {
   '/leagues': typeof LeaguesRoute
   '/mentors': typeof MentorsRoute
   '/quests': typeof QuestsRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chat' | '/leagues' | '/mentors' | '/quests'
+  fullPaths: '/' | '/chat' | '/leagues' | '/mentors' | '/quests' | '/shop'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat' | '/leagues' | '/mentors' | '/quests'
-  id: '__root__' | '/' | '/chat' | '/leagues' | '/mentors' | '/quests'
+  to: '/' | '/chat' | '/leagues' | '/mentors' | '/quests' | '/shop'
+  id: '__root__' | '/' | '/chat' | '/leagues' | '/mentors' | '/quests' | '/shop'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +86,18 @@ export interface RootRouteChildren {
   LeaguesRoute: typeof LeaguesRoute
   MentorsRoute: typeof MentorsRoute
   QuestsRoute: typeof QuestsRoute
+  ShopRoute: typeof ShopRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quests': {
       id: '/quests'
       path: '/quests'
@@ -125,6 +142,7 @@ const rootRouteChildren: RootRouteChildren = {
   LeaguesRoute: LeaguesRoute,
   MentorsRoute: MentorsRoute,
   QuestsRoute: QuestsRoute,
+  ShopRoute: ShopRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
