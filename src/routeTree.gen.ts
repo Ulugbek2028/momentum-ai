@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as QuestsRouteImport } from './routes/quests'
 import { Route as MentorsRouteImport } from './routes/mentors'
+import { Route as LeaguesRouteImport } from './routes/leagues'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const QuestsRoute = QuestsRouteImport.update({
 const MentorsRoute = MentorsRouteImport.update({
   id: '/mentors',
   path: '/mentors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaguesRoute = LeaguesRouteImport.update({
+  id: '/leagues',
+  path: '/leagues',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChatRoute = ChatRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
+  '/leagues': typeof LeaguesRoute
   '/mentors': typeof MentorsRoute
   '/quests': typeof QuestsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
+  '/leagues': typeof LeaguesRoute
   '/mentors': typeof MentorsRoute
   '/quests': typeof QuestsRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
+  '/leagues': typeof LeaguesRoute
   '/mentors': typeof MentorsRoute
   '/quests': typeof QuestsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chat' | '/mentors' | '/quests'
+  fullPaths: '/' | '/chat' | '/leagues' | '/mentors' | '/quests'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat' | '/mentors' | '/quests'
-  id: '__root__' | '/' | '/chat' | '/mentors' | '/quests'
+  to: '/' | '/chat' | '/leagues' | '/mentors' | '/quests'
+  id: '__root__' | '/' | '/chat' | '/leagues' | '/mentors' | '/quests'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChatRoute: typeof ChatRoute
+  LeaguesRoute: typeof LeaguesRoute
   MentorsRoute: typeof MentorsRoute
   QuestsRoute: typeof QuestsRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/mentors'
       fullPath: '/mentors'
       preLoaderRoute: typeof MentorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leagues': {
+      id: '/leagues'
+      path: '/leagues'
+      fullPath: '/leagues'
+      preLoaderRoute: typeof LeaguesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chat': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChatRoute: ChatRoute,
+  LeaguesRoute: LeaguesRoute,
   MentorsRoute: MentorsRoute,
   QuestsRoute: QuestsRoute,
 }
