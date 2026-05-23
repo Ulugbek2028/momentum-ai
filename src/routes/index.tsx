@@ -1,23 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Flame, Zap, Heart, Trophy, ArrowRight, CheckCircle2, Target, Sparkles } from "lucide-react";
-import { AppShell } from "@/components/AppShell";
+import { Flame, Heart, Trophy, ArrowRight, CheckCircle2, Target, Sparkles } from "lucide-react";
 import { Card, LevelRing, Tag, XPBar } from "@/components/ui-primitives";
 
 export const Route = createFileRoute("/")({
-  component: DashboardPage,
+  component: Dashboard,
 });
-
-function DashboardPage() {
-  return (
-    <AppShell.Dummy>
-      <Dashboard />
-    </AppShell.Dummy>
-  );
-}
-
-// We need AppShell rendered around content - use direct render
-DashboardPage.displayName = "DashboardPage";
 
 function Dashboard() {
   const days = [true, true, true, true, true, true, "today"] as const;
