@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as QuestsRouteImport } from './routes/quests'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MentorsRouteImport } from './routes/mentors'
@@ -20,6 +21,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuestsRoute = QuestsRouteImport.update({
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/mentors': typeof MentorsRoute
   '/profile': typeof ProfileRoute
   '/quests': typeof QuestsRoute
+  '/settings': typeof SettingsRoute
   '/shop': typeof ShopRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/mentors': typeof MentorsRoute
   '/profile': typeof ProfileRoute
   '/quests': typeof QuestsRoute
+  '/settings': typeof SettingsRoute
   '/shop': typeof ShopRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/mentors': typeof MentorsRoute
   '/profile': typeof ProfileRoute
   '/quests': typeof QuestsRoute
+  '/settings': typeof SettingsRoute
   '/shop': typeof ShopRoute
 }
 export interface FileRouteTypes {
@@ -90,9 +99,18 @@ export interface FileRouteTypes {
     | '/mentors'
     | '/profile'
     | '/quests'
+    | '/settings'
     | '/shop'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat' | '/leagues' | '/mentors' | '/profile' | '/quests' | '/shop'
+  to:
+    | '/'
+    | '/chat'
+    | '/leagues'
+    | '/mentors'
+    | '/profile'
+    | '/quests'
+    | '/settings'
+    | '/shop'
   id:
     | '__root__'
     | '/'
@@ -101,6 +119,7 @@ export interface FileRouteTypes {
     | '/mentors'
     | '/profile'
     | '/quests'
+    | '/settings'
     | '/shop'
   fileRoutesById: FileRoutesById
 }
@@ -111,6 +130,7 @@ export interface RootRouteChildren {
   MentorsRoute: typeof MentorsRoute
   ProfileRoute: typeof ProfileRoute
   QuestsRoute: typeof QuestsRoute
+  SettingsRoute: typeof SettingsRoute
   ShopRoute: typeof ShopRoute
 }
 
@@ -121,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quests': {
@@ -175,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   MentorsRoute: MentorsRoute,
   ProfileRoute: ProfileRoute,
   QuestsRoute: QuestsRoute,
+  SettingsRoute: SettingsRoute,
   ShopRoute: ShopRoute,
 }
 export const routeTree = rootRouteImport
