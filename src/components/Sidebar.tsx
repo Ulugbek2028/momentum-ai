@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Home, Users, Swords, Trophy, ShoppingBag, User, Settings, Flame, Zap } from "lucide-react";
+import { Home, Users, Swords, Trophy, ShoppingBag, User, Settings, Flame, Zap, Shield } from "lucide-react";
+import { useApp } from "@/lib/store";
 
 const navItems = [
   { to: "/", label: "Главная", icon: Home },
@@ -12,9 +13,11 @@ const navItems = [
 const bottomItems = [
   { to: "/profile", label: "Профиль", icon: User },
   { to: "/settings", label: "Настройки", icon: Settings },
+  { to: "/admin", label: "Admin Panel", icon: Shield },
 ];
 
 export function Sidebar() {
+  const { user } = useApp();
   return (
     <aside className="hidden lg:flex fixed left-0 top-0 h-dvh w-60 flex-col bg-bg-surface border-r border-border-default z-40">
       <div className="px-6 py-5">
@@ -26,18 +29,20 @@ export function Sidebar() {
 
       <div className="mx-4 mb-4 rounded-lg bg-bg-surface2 p-3 border border-border-default">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-full bg-gradient-to-br from-red-hover to-red grid place-items-center text-white font-semibold">A</div>
+          <div className="size-10 rounded-full bg-gradient-to-br from-red-hover to-red grid place-items-center text-white font-semibold">
+            {user.avatar}
+          </div>
           <div className="min-w-0">
-            <div className="text-sm font-medium truncate">Алишер К.</div>
+            <div className="text-sm font-medium truncate">{user.name}</div>
             <div className="text-[11px] text-text-secondary flex items-center gap-2">
-              <span className="flex items-center gap-1"><Flame className="size-3 text-orange" />47</span>
-              <span className="flex items-center gap-1"><Zap className="size-3 text-gold" />Ур.7</span>
+              <span className="flex items-center gap-1"><Flame className="size-3 text-orange" />{user.streak}</span>
+              <span className="flex items-center gap-1"><Zap className="size-3 text-gold" />Ур.{user.level}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <nav className="flex-1 px-3 space-y-0.5">
+      <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto">
         {navItems.map((item) => (
           <NavLink key={item.to} {...item} />
         ))}
@@ -52,7 +57,7 @@ export function Sidebar() {
           to="/shop"
           className="block text-center bg-gradient-to-r from-red to-red-hover text-white font-semibold py-2.5 rounded-md shadow-red-glow hover:brightness-110 transition"
         >
-          Upgrade to Pro
+          💎 {user.gems} гемов
         </Link>
       </div>
     </aside>
@@ -77,6 +82,7 @@ function NavLink({ to, label, icon: Icon, dot }: { to: string; label: string; ic
 }
 
 export function MobileTabBar() {
+  const { user } = useApp();
   const tabs = [
     { to: "/", label: "Главная", icon: Home },
     { to: "/mentors", label: "Менторы", icon: Users },
@@ -101,3 +107,4 @@ export function MobileTabBar() {
     </nav>
   );
 }
+
