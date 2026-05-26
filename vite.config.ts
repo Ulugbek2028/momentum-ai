@@ -1,3 +1,4 @@
+// Standard Vite configuration for TanStack Start (Node.js deployment)
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import tailwindcss from "@tailwindcss/vite";
