@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { Flame, Heart, Trophy, ArrowRight, CheckCircle2, Target, Sparkles } from "lucide-react";
 import { Card, LevelRing, Tag, XPBar } from "@/components/ui-primitives";
 
@@ -10,7 +9,7 @@ export const Route = createFileRoute("/")({
 function Dashboard() {
   const days = [true, true, true, true, true, true, "today"] as const;
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+    <div className="animate-fade-in">
       {/* Greeting */}
       <div className="mb-8">
         <h1 className="font-display text-3xl lg:text-4xl">Доброе утро, Алишер 👋</h1>
@@ -169,7 +168,7 @@ function Dashboard() {
           </button>
         </Card>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -191,11 +190,9 @@ function ChallengeRow({
           </div>
           <div className="text-xs text-text-secondary mb-2">{desc}</div>
           <div className="h-1 rounded-full bg-bg-surface3 overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${pct}%` }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className={`h-full ${done ? "bg-green" : "bg-gradient-to-r from-red to-orange"}`}
+            <div
+              style={{ width: `${pct}%` }}
+              className={`h-full ${done ? "bg-green" : "bg-gradient-to-r from-red to-orange"} transition-[width] duration-1000 ease-out`}
             />
           </div>
         </div>

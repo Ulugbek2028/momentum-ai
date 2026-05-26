@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { Mic, Send, Lightbulb, ClipboardList } from "lucide-react";
 import { Tag } from "@/components/ui-primitives";
 
@@ -97,7 +96,7 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
 
 function AssistantMsg({ children, time }: { children: React.ReactNode; time: string }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3 max-w-[80%]">
+    <div className="flex gap-3 max-w-[80%] animate-fade-in">
       <div className="size-9 rounded-full bg-gradient-to-br from-blue to-purple grid place-items-center text-xs font-semibold text-white shrink-0">РД</div>
       <div className="min-w-0">
         <div className="text-[11px] text-text-secondary mb-1">Рэй Далио</div>
@@ -106,26 +105,26 @@ function AssistantMsg({ children, time }: { children: React.ReactNode; time: str
         </div>
         <div className="text-[10px] text-text-tertiary mt-1">{time}</div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 function UserMsg({ children, time }: { children: React.ReactNode; time: string }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="flex justify-end">
+    <div className="flex justify-end animate-fade-in">
       <div className="max-w-[80%]">
         <div className="rounded-tr-sm rounded-2xl rounded-bl-2xl rounded-br-2xl bg-red-dim border border-border-accent px-4 py-3 text-sm leading-relaxed">
           {children}
         </div>
         <div className="text-[10px] text-text-tertiary mt-1 text-right">{time}</div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 function InsightCard({ quote }: { quote: string }) {
   return (
-    <div className="rounded-lg bg-gold-dim border-l-[3px] border-gold p-4 max-w-[80%]">
+    <div className="rounded-lg bg-gold-dim border-l-[3px] border-gold p-4 max-w-[80%] animate-fade-in">
       <div className="flex items-center gap-2 text-gold text-xs uppercase tracking-wider font-semibold mb-2">
         <Lightbulb className="size-4" /> Ключевой инсайт
       </div>
@@ -136,7 +135,7 @@ function InsightCard({ quote }: { quote: string }) {
 
 function ActionItemCard({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="rounded-lg bg-bg-surface2 border-l-[3px] border-red p-4 max-w-[80%]">
+    <div className="rounded-lg bg-bg-surface2 border-l-[3px] border-red p-4 max-w-[80%] animate-fade-in">
       <div className="flex items-center gap-2 text-red text-xs uppercase tracking-wider font-semibold mb-2">
         <ClipboardList className="size-4" /> Рекомендуемое действие
       </div>
@@ -149,15 +148,14 @@ function ActionItemCard({ title, desc }: { title: string; desc: string }) {
 
 function TypingIndicator() {
   return (
-    <div className="flex gap-3 max-w-[80%]">
+    <div className="flex gap-3 max-w-[80%] animate-fade-in">
       <div className="size-9 rounded-full bg-gradient-to-br from-blue to-purple grid place-items-center text-xs font-semibold text-white shrink-0">РД</div>
       <div className="rounded-2xl bg-bg-surface2 border border-border-default px-4 py-3 flex items-center gap-1.5">
         {[0, 1, 2].map((i) => (
-          <motion.span
+          <span
             key={i}
-            className="size-1.5 rounded-full bg-text-secondary"
-            animate={{ opacity: [0.3, 1, 0.3] }}
-            transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }}
+            style={{ animationDelay: `${i * 180}ms` }}
+            className="size-1.5 rounded-full bg-text-secondary animate-pulse"
           />
         ))}
         <span className="text-[11px] text-text-tertiary ml-1">печатает...</span>

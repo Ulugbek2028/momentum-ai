@@ -1,17 +1,13 @@
-import { motion } from "framer-motion";
-
 export function XPBar({ value, max }: { value: number; max: number }) {
   const pct = Math.min(100, (value / max) * 100);
   return (
     <div className="relative h-2 w-full rounded-full bg-bg-surface3 overflow-hidden">
-      <motion.div
-        initial={{ width: 0 }}
-        animate={{ width: `${pct}%` }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="h-full rounded-full bg-gradient-to-r from-red to-orange relative overflow-hidden"
+      <div
+        style={{ width: `${pct}%` }}
+        className="h-full rounded-full bg-gradient-to-r from-red to-orange relative overflow-hidden transition-[width] duration-1000 ease-out"
       >
         <div className="absolute inset-0 bg-shimmer animate-[shimmer_2s_linear_infinite]" />
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -64,7 +60,7 @@ export function LevelRing({ level, pct }: { level: number; pct: number }) {
     <div className="relative size-20">
       <svg viewBox="0 0 80 80" className="size-20 -rotate-90">
         <circle cx="40" cy="40" r={r} stroke="var(--bg-surface3)" strokeWidth="6" fill="none" />
-        <motion.circle
+        <circle
           cx="40"
           cy="40"
           r={r}
@@ -73,10 +69,11 @@ export function LevelRing({ level, pct }: { level: number; pct: number }) {
           fill="none"
           strokeLinecap="round"
           strokeDasharray={c}
-          initial={{ strokeDashoffset: c }}
-          animate={{ strokeDashoffset: c - (c * pct) / 100 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-          style={{ filter: "drop-shadow(0 0 6px rgba(232,25,44,0.6))" }}
+          style={{
+            strokeDashoffset: c - (c * pct) / 100,
+            filter: "drop-shadow(0 0 6px rgba(232,25,44,0.6))",
+          }}
+          className="transition-[stroke-dashoffset] duration-1000 delay-200 ease-out"
         />
       </svg>
       <div className="absolute inset-0 grid place-items-center">

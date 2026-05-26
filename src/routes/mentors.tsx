@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { Search, Lock, Flame } from "lucide-react";
 import { Tag } from "@/components/ui-primitives";
 
@@ -20,7 +19,7 @@ const FILTERS = ["Все", "Узбекистан", "Глобальные", "Би
 
 function MentorsPage() {
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
+    <div className="animate-fade-in">
       <div className="mb-6">
         <h1 className="font-display text-3xl lg:text-4xl">Выбери ментора</h1>
         <p className="text-text-secondary text-sm mt-1">12 AI-менторов · Эксперты мирового уровня</p>
@@ -49,12 +48,10 @@ function MentorsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {MENTORS.map((m, idx) => (
-          <motion.div
+          <div
             key={m.id}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: idx * 0.06 }}
-            className="group relative rounded-lg border border-border-default bg-bg-surface overflow-hidden transition hover:-translate-y-1 hover:border-border-accent shadow-card"
+            style={{ animationDelay: `${idx * 60}ms` }}
+            className="group relative rounded-lg border border-border-default bg-bg-surface overflow-hidden transition hover:-translate-y-1 hover:border-border-accent shadow-card animate-fade-in opacity-0"
           >
             <div className={`h-0.5 bg-gradient-to-r ${m.color}`} />
             <div className="p-6">
@@ -84,9 +81,9 @@ function MentorsPage() {
                 </div>
               </div>
             )}
-          </motion.div>
+          </div>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
