@@ -8,7 +8,7 @@
     "build": "SERVER_PRESET=node-server vite build",
     "build:dev": "SERVER_PRESET=node-server vite build --mode development",
     "preview": "vite preview",
-    "start": "PORT=8080 node .output/server/index.mjs",
+    "start": "node .output/server/index.mjs",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
